@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>트롯팡팡 실행하기</title>
+    <script>
+        function getMobileOS() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            } else {
+                return "Other";
+            }
+        }
+
+        function openApp() {
+            var os = getMobileOS();
+
+            var now = new Date().getTime();
+            setTimeout(function () {
+                var timeDiff = new Date().getTime() - now;
+                if (timeDiff < 2000) {
+                    // 앱이 실행되지 않으면 스토어로 이동
+
+                    if (os === "Android") {
+                        console.log("안드로이드입니다.");
+                        window.location.href = "https://play.google.com/store/apps/details?id=kr.starlike.trot";
+                    } else if (os === "iOS") {
+                        console.log("아이폰(iOS)입니다.");
+                        window.location.href = "https://apps.apple.com/kr/app/id6740611148";
+                    } else {
+                        console.log("모바일이 아닌 환경입니다.");
+                        window.location.href = "https://play.google.com/store/apps/details?id=kr.starlike.trot";
+                    }
+
+                }
+            }, 1000);
+
+            // 앱 실행 시도
+            window.location.href = "kr.starlike.trot://open?screen=lobby";
+        }
+    </script>
+</head>
+
+<body onload="openApp()">
+    <img src="https://static.wixstatic.com/media/a447d3_47db522d427742c3bcf66ba9316bf99e~mv2.png" alt="이미지 설명" width="200">
+</body>
+
+</html>
